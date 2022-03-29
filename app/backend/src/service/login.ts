@@ -21,6 +21,4 @@ const verifyUserService = async ({ email, password }: LoginInterface): Promise<U
   return { id, username, role, email };
 };
 
-export default {
-  verifyUserService,
-};
+export default verifyUserService;
