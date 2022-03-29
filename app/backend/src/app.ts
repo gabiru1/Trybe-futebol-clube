@@ -1,4 +1,5 @@
 import * as express from 'express';
+import loginRouter from './routes/loginRouter';
 
 class App {
   public app: express.Express;
@@ -19,7 +20,8 @@ class App {
     };
 
     this.app.use(accessControl);
-    // ...
+
+    this.app.use(loginRouter);
   }
 
   // ...

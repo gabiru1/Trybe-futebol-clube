@@ -17,6 +17,4 @@ const verifyUserController = async (req: Request, res: Response) => {
   }
 };
 
-export default {
-  verifyUserController,
-};
+export default verifyUserController;
