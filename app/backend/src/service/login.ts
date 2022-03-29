@@ -13,9 +13,13 @@ const verifyUserService = async ({ email, password }: LoginInterface): Promise<U
 
   const validUser = await Users.findOne({ where: { email } });
 
+  console.log(validUser, 'aqui papai');
+
   if (validUser === null) throw new Error(messageIncorrect);
 
   const validPassword = compareSync(password, validUser.password);
+
+  console.log(validPassword, 'aqui papai 2');
 
   if (!validPassword) throw new Error(messageIncorrect);
 

@@ -7,11 +7,11 @@ const verifyUserController = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   try {
-    const validUser: UserInterface = await verifyUserService({ email, password });
+    const user: UserInterface = await verifyUserService({ email, password });
 
-    const token = await createToken(validUser.username);
+    const token = await createToken({ email });
 
-    return res.status(200).json({ validUser, token });
+    return res.status(200).json({ user, token });
   } catch (error: Error | unknown) {
     if (error instanceof Error) return res.status(401).json({ message: error.message });
   }

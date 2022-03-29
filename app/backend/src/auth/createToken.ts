@@ -7,7 +7,7 @@ const readKey = async (): Promise<string> => {
   return jwtKey;
 };
 
-const createToken = async (data: string): Promise<string> => {
+const createToken = async (data: jwt.JwtPayload): Promise<string> => {
   const jwtKey = await readKey();
 
   const token = jwt.sign(data, jwtKey, {
