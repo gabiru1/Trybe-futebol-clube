@@ -1,4 +1,5 @@
 import * as express from 'express';
+import clubsRouter from './routes/clubsRouter';
 import loginRouter from './routes/loginRouter';
 
 class App {
@@ -22,6 +23,8 @@ class App {
     this.app.use(express.json());
 
     this.app.use('/', loginRouter);
+
+    this.app.use('/', clubsRouter);
   }
 
   public start(PORT: string | number):void {
