@@ -9,6 +9,8 @@ const getAllClubsService = async () => {
 const getClubByIdService = async (id: string) => {
   const clubById = await Clubs.findByPk(id);
 
+  console.log(clubById);
+
   return clubById;
 };
 
