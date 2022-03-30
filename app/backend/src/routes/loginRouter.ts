@@ -6,4 +6,6 @@ const loginRouter = express.Router();
 
 loginRouter.post('/login', isValidPassword, verifyUserController);
 
+loginRouter.get('/login/validate');
+
 export default loginRouter;
