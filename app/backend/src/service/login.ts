@@ -28,4 +28,15 @@ const verifyUserService = async ({ email, password }: LoginInterface): Promise<U
   return { id, username, role, email };
 };
 
-export default verifyUserService;
+const authorizeTokenService = async ({ email }: LoginInterface) => {
+  const validUser = await Users.findOne({ where: { email } });
+
+  if (!validUser) throw new Error('Invalid Token');
+
+  return validUser?.role;
+};
+
+export {
+  verifyUserService,
+  authorizeTokenService,
+};

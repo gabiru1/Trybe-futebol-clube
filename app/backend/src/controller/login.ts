@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import createToken from '../auth/createToken';
+import validateToken from '../auth/validateToken';
 import UserInterface from '../interfaces/UserInterface';
-import verifyUserService from '../service/login';
+import { authorizeTokenService, verifyUserService } from '../service/login';
 
 const verifyUserController = async (req: Request, res: Response) => {
   const { email, password } = req.body;
@@ -17,4 +18,19 @@ const verifyUserController = async (req: Request, res: Response) => {
   }
 };
 
-export default verifyUserController;
+const authorizeTokenController = async (req: Request, res: Response) => {
+  const token = req.headers.authorization;
+
+  try {
+    const { email } = await validateToken(token as string);
+    const authorizedToken = await authorizeTokenService({ email });
+    return res.status(200).json(authorizedToken);
+  } catch (error: Error | unknown) {
+    if (error instanceof Error) return res.status(401).json({ message: error.message });
+  }
+};
+
+export {
+  verifyUserController,
+  authorizeTokenController,
+};
