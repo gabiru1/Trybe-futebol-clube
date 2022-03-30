@@ -27,9 +27,9 @@ const createMatchsController = async (req: Request, res: Response) => {
 const editProgressMatchController = async (req: Request, res: Response) => {
   const { id } = req.params;
 
-  const finishMatch = await editProgressMatchService(id);
+  await editProgressMatchService(id);
 
-  return res.status(200).json(finishMatch);
+  return res.status(200).json({ message: 'ok' });
 };
 
 export {

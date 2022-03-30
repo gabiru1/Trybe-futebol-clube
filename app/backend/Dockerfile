@@ -3,11 +3,11 @@ FROM node:16-alpine
 
 WORKDIR /app/backend
 
-COPY package.json .
+COPY package* ./
 
 RUN npm install
 
 COPY . .
 
-CMD ["npm", "start"]
+ENTRYPOINT ["npm", "start"]
 #  ...

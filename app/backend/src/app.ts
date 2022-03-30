@@ -1,3 +1,4 @@
+import * as cors from 'cors';
 import * as express from 'express';
 import clubsRouter from './routes/clubsRouter';
 import loginRouter from './routes/loginRouter';
@@ -14,7 +15,7 @@ class App {
   private config():void {
     const accessControl: express.RequestHandler = (_req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT');
+      res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT,PATCH');
       res.header('Access-Control-Allow-Headers', '*');
       next();
     };
@@ -22,6 +23,8 @@ class App {
     this.app.use(accessControl);
 
     this.app.use(express.json());
+
+    this.app.use(cors());
 
     this.app.use('/', loginRouter);
 

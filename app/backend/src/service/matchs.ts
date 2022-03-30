@@ -22,6 +22,8 @@ const createMatchsService = async (data: MatchInterface) => {
 const editProgressMatchService = async (id: string) => {
   const finishMatch = await Matchs.update({ inProgress: false }, { where: { id } });
 
+  console.log(finishMatch);
+
   return finishMatch;
 };
 
