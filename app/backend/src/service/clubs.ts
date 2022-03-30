@@ -6,4 +6,13 @@ const getAllClubsService = async () => {
   return allClubs;
 };
 
-export default getAllClubsService;
+const getClubByIdService = async (id: string) => {
+  const clubById = await Clubs.findByPk(id);
+
+  return clubById;
+};
+
+export {
+  getAllClubsService,
+  getClubByIdService,
+};

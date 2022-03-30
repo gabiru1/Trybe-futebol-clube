@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import getAllClubsService from '../service/clubs';
+import { getAllClubsService, getClubByIdService } from '../service/clubs';
 
 const getAllClubsController = async (_req: Request, res: Response) => {
   const allClubs = await getAllClubsService();
@@ -7,4 +7,15 @@ const getAllClubsController = async (_req: Request, res: Response) => {
   return res.status(200).json(allClubs);
 };
 
-export default getAllClubsController;
+const getClubByIdController = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const clubById = getClubByIdService(id);
+
+  return res.status(200).json(clubById);
+};
+
+export {
+  getAllClubsController,
+  getClubByIdController,
+};
