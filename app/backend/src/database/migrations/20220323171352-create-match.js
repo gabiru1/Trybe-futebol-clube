@@ -36,7 +36,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       in_progress: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.INTEGER
       }
     });
   },
