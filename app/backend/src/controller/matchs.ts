@@ -3,12 +3,20 @@ import {
   createMatchsService,
   editProgressMatchService,
   getAllMatchsService,
+  getMatchsByProgress,
 } from '../service/matchs';
 
-const getAllMatchsController = async (_req: Request, res: Response) => {
-  const allMatchs = await getAllMatchsService();
+const getAllMatchsController = async (req: Request, res: Response) => {
+  const { inProgress } = req.query;
 
-  return res.status(200).json(allMatchs);
+  if (!inProgress) {
+    const allMatchs = await getAllMatchsService();
+    return res.status(200).json(allMatchs);
+  }
+
+  const allMatchsByProgress = getMatchsByProgress(false);
+
+  return res.status(200).json(allMatchsByProgress);
 };
 
 const createMatchsController = async (req: Request, res: Response) => {
