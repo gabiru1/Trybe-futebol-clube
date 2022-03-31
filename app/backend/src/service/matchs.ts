@@ -14,8 +14,8 @@ const getAllMatchsService = async () => {
 };
 
 const createMatchsService = async (data: MatchInterface) => {
-  const validHome = Clubs.findOne({ where: { id: data.homeTeam } });
-  const validAway = Clubs.findOne({ where: { id: data.awayTeam } });
+  const validHome = await Matchs.findOne({ where: { homeTeam: data.homeTeam } }); // pq nao funciona com club??????
+  const validAway = await Matchs.findOne({ where: { awayTeam: data.awayTeam } });
 
   if (!validHome || !validAway) throw new Error('There is no team with such id!');
 
