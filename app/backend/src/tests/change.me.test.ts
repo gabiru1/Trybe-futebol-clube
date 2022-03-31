@@ -25,12 +25,12 @@ describe('Test /login (POST)', () => {
   describe('Testa se é possível fazer uma requisição com usuário válido', () => {
     before(async () => {
       sinon.stub(Users, "findOne").resolves(validUser as Users);
-      sinon.stub(bcryptjs, "compare").resolves(true)
+      sinon.stub(bcryptjs, "compareSync").returns(true);
     })
 
     after(async () => {
       (Users.findOne as sinon.SinonStub).restore();
-      (bcryptjs.compare as sinon.SinonStub).restore();
+      (bcryptjs.compareSync as sinon.SinonStub).restore();
     })
 
     it('Verifica se o usuário é válido', async () => {
