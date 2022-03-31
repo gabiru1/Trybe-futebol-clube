@@ -1,44 +1,54 @@
-import * as sinon from 'sinon';
+import * as bcryptjs from 'bcryptjs';
 import * as chai from 'chai';
-import chaiHttp = require('chai-http');
-
-import { app } from '../app';
-import Example from '../database/models/ExampleModel';
-
+import * as sinon from 'sinon';
 import { Response } from 'superagent';
+import { app } from '../app';
+import Users from '../database/models/Users';
+import chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Seu teste', () => {
-  /**
-   * Exemplo do uso de stubs com tipos
-   */
+const validUser = {
+  id: 1,
+  username: "Admin",
+  role: "admin",
+  password: "secret_admin",
+  email: "admin@admin.com",
+};
 
-  // let chaiHttpResponse: Response;
+describe('Test /login (POST)', () => {
+  let res: Response;
+  let req;
 
-  // before(async () => {
-  //   sinon
-  //     .stub(Example, "findOne")
-  //     .resolves({
-  //       ...<Seu mock>
-  //     } as Example);
-  // });
+  describe('Testa se é possível fazer uma requisição com usuário válido', () => {
+    before(async () => {
+      sinon.stub(Users, "findOne").resolves(validUser as Users);
+      sinon.stub(bcryptjs, "compare").resolves(true)
+    })
 
-  // after(()=>{
-  //   (Example.findOne as sinon.SinonStub).restore();
-  // })
+    after(async () => {
+      (Users.findOne as sinon.SinonStub).restore();
+      (bcryptjs.compare as sinon.SinonStub).restore();
+    })
 
-  // it('...', async () => {
-  //   chaiHttpResponse = await chai
-  //      .request(app)
-  //      ...
+    it('Verifica se o usuário é válido', async () => {
+      req = { email: "admin@admin.com", password: "secret_admin" };
+      res = await chai.request(app).post('/login').send(req);
 
-  //   expect(...)
-  // });
+      console.log(res);
+      
+      const { user, token } = res.body;
 
-  it('Seu sub-teste', () => {
-    expect(false).to.be.eq(true);
+      console.log(user);
+
+      expect(user.id).to.be.equal(1);
+      expect(user.username).to.be.equal("Admin");
+      expect(user.role).to.be.equal("admin");
+      expect(user.email).to.be.equal("admin@admin.com");
+      expect(token).to.be.contains("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ");
+      expect(res.status).to.be.equal(200);
+    });
   });
 });

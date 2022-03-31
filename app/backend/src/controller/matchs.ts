@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import {
-  createMatchsService,
+  changeResultMatchService, createMatchsService,
   editProgressMatchService,
   getAllMatchsService,
   getMatchsByProgress,
@@ -40,8 +40,18 @@ const editProgressMatchController = async (req: Request, res: Response) => {
   return res.status(200).json({ message: 'ok' });
 };
 
+const changeResultMatchController = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { homeTeamGoals, awayTeamGoals } = req.body;
+
+  const changedMatch = await changeResultMatchService(id, homeTeamGoals, awayTeamGoals);
+
+  return res.status(200).json(changedMatch);
+};
+
 export {
   getAllMatchsController,
   createMatchsController,
   editProgressMatchController,
+  changeResultMatchController,
 };

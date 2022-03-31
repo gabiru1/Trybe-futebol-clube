@@ -47,9 +47,20 @@ const getMatchsByProgress = async (inProgress: boolean) => {
   return allMatchs;
 };
 
+const changeResultMatchService = async (
+  id: string,
+  homeTeamGoals: number,
+  awayTeamGoals: number,
+) => {
+  const changedMatch = await Matchs.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+
+  return changedMatch;
+};
+
 export {
   getAllMatchsService,
   createMatchsService,
   editProgressMatchService,
   getMatchsByProgress,
+  changeResultMatchService,
 };
