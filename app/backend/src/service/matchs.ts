@@ -36,7 +36,7 @@ const editProgressMatchService = async (id: string) => {
   return finishMatch;
 };
 
-const getMatchsByProgress = async (inProgress: boolean) => {
+const getMatchsByProgressService = async (inProgress: boolean) => {
   const allMatchs = await Matchs.findAll({
     where: { inProgress },
     include: [
@@ -61,6 +61,6 @@ export {
   getAllMatchsService,
   createMatchsService,
   editProgressMatchService,
-  getMatchsByProgress,
+  getMatchsByProgressService,
   changeResultMatchService,
 };

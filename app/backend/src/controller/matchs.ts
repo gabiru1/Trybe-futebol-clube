@@ -3,7 +3,7 @@ import {
   changeResultMatchService, createMatchsService,
   editProgressMatchService,
   getAllMatchsService,
-  getMatchsByProgress,
+  getMatchsByProgressService,
 } from '../service/matchs';
 
 const getAllMatchsController = async (req: Request, res: Response) => {
@@ -14,7 +14,7 @@ const getAllMatchsController = async (req: Request, res: Response) => {
     return res.status(200).json(allMatchs);
   }
 
-  const allMatchsByProgress = getMatchsByProgress(false);
+  const allMatchsByProgress = getMatchsByProgressService(false);
 
   return res.status(200).json(allMatchsByProgress);
 };
